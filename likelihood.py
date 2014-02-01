@@ -1,5 +1,4 @@
-
-timestamps_and_labels = np.loadtxt('timestamps_and_labels.txt')
+timestamps_and_labels = np.load('timestamps_and_labels.txt')
 
 def loglik(t,alpha,beta):
     K,M,N = alpha.shape
