@@ -1,14 +1,23 @@
 import numpy as np
 import random
 
-# I follow the algo described in the HawkesCourseSlides.pdf
+"""I follow the algo described in the HawkesCourseSlides.pdf
+It generates a 1D hawkes process with the specified parameters."""
 
 def lambda_t(t, lambda_0, alpha, beta, points):
+	"""Generic function (could be used outside, for e.g. plotting)
+	that generates the value of Hawkes' lambda given the parameters
+	and the past values of times of events. """
+
 	points = np.array(points)
 	points = points[points < t]
 	return lambda_0 + alpha * np.sum(np.exp(-beta * (t - points)))
 
 def generate_1D_Hawkes(time_horizon, lambda_0, alpha, beta):
+	"""Actual algo for generating a Hawkes Process.
+	It uses the "thinning procedure" by Lewis & Shedler.
+	I follows the slides."""
+
 	result = []
 	lambda_star = lambda_0
 

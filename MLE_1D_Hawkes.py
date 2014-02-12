@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import scipy.optimize
 import cython_functions
 
-DEBUG = False
+DEBUG = True
 INITIAL_VALUES = [1,1,1]
 
 # Recursive definition of R
