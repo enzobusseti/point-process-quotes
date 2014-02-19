@@ -62,9 +62,16 @@ def MLE_estimate(data, event_type, lambda_lasso):
 	bounds."""
 	optimizer_func = lambda x: -scalar_loglik(data, event_type, *x) + lambda_lasso * np.sum(np.abs(x[:-1]))#np.sum(np.abs(x[:(len(x)-1)/2 + 1])) #negative because we maximize
 	#INITIAL_VALUES = [1] + [1] * len(data) * 2
-	INITIAL_VALUES = [1] * (len(data) + 2)
-	result = scipy.optimize.fmin_l_bfgs_b(optimizer_func, INITIAL_VALUES, bounds = [(0, None)]* (len(INITIAL_VALUES)-1) + [(1, None)], approx_grad = True, disp = True)
-	#result = scipy.optimize.fmin(optimizer_func, INITIAL_VALUES, disp = True)
+#	INITIAL_VALUES = [1] * (len(data) + 2)
+#	result = scipy.optimize.fmin_l_bfgs_b(optimizer_func, INITIAL_VALUES, bounds = [(0, None)]* (len(INITIAL_VALUES)-1) + [(1, None)], approx_grad = True, disp = True)
+	INITIAL_VALUES = [1.03268077,   5.79553433,   0.        ,   0.97914971,
+        23.84772554,  14.64064035,   1.19917264,   0.        ,
+         6.68104094,   0.19220533,  40.06850691]
+         
+         
+	optimizer = 'L-BFGS-B' # 'TNC' # 
+	result = scipy.optimize.minimize(optimizer_func,  INITIAL_VALUES, method=optimizer, bounds = [(0, None)]* (len(INITIAL_VALUES)-1) + [(1, None)], \
+	    options={'disp': True, 'approx_grad':True})
 	return result
 
 if __name__ == "__main__":
